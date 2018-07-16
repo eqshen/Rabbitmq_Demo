@@ -32,5 +32,13 @@ public class MqListener {
     @RabbitListener(queues = {"cid_topic_eqshen"})
     public void topicQueueConsume1(Message msg){
         System.out.println("topicQueueConsume 1接收到消息："+ new String(msg.getBody()));
+        //throw  new RuntimeException("topicQueueConsume1   exception");
+    }
+
+
+    @RabbitListener(queues = {"cid_topic_eqshen"})
+    public void topicQueueConsume2(Message msg){
+        System.out.println("topicQueueConsume 2接收到消息："+ new String(msg.getBody()));
+        //throw  new RuntimeException("topicQueueConsume2   exception");
     }
 }
