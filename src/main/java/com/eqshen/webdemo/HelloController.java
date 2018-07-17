@@ -67,7 +67,9 @@ public class HelloController {
     @RequestMapping("/topic")
     @ResponseBody
     public String topic(){
-        topicProducer.send("hello topic");
+        for (int i = 0; i <500 ; i++) {
+            topicProducer.send("hello topic "+i);
+        }
         return "ok";
     }
 }

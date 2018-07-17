@@ -5,11 +5,11 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class MqListener {
 
-    @Value("${mq.queue.simpleQueue}")
-    private String simpleQueue;
 
 
     @RabbitListener(queues = {"simple_queue1","simple_queue2"})
@@ -27,18 +27,18 @@ public class MqListener {
     public void directQueueConsume2(Message msg){
         System.out.println("directQueueConsume 2接收到消息："+ new String(msg.getBody()));
     }
-
-
-    @RabbitListener(queues = {"cid_topic_eqshen"})
-    public void topicQueueConsume1(Message msg){
-        System.out.println("topicQueueConsume 1接收到消息："+ new String(msg.getBody()));
-        //throw  new RuntimeException("topicQueueConsume1   exception");
+    
+    @RabbitListener(queues = {"${mq.queue.topicQueue}"})
+    public void topicQueueConsume1(Message msg) throws InterruptedException {
+        System.out.println(new Date() +"topicQueueConsume 1接收到消息："+ new String(msg.getBody()));
+//        Thread.sleep(10000);
+//        throw  new RuntimeException("topicQueueConsume1   exception");
     }
 
 
-    @RabbitListener(queues = {"cid_topic_eqshen"})
+//    @RabbitListener(queues = {"cid_topic_eqshen"})
     public void topicQueueConsume2(Message msg){
-        System.out.println("topicQueueConsume 2接收到消息："+ new String(msg.getBody()));
-        //throw  new RuntimeException("topicQueueConsume2   exception");
+        System.out.println(new Date()+ "topicQueueConsume 2接收到消息："+ new String(msg.getBody()));
+        throw  new RuntimeException("topicQueueConsume2   exception");
     }
 }
