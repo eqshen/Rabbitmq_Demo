@@ -1,5 +1,5 @@
 # Rabbitmq_Demo
-##1
+##1 
 SpringBoot集成RabbitMQ。包含的普通queue的消费，以及Dirct、Topic模式。
 由阿里ons向RabbitMQ迁移，结合自己的理解，对二者进行了总结对比（图1，图2）：https://www.processon.com/view/link/5b46b658e4b00c2f18c96fd4
 
@@ -13,6 +13,6 @@ SpringBoot集成RabbitMQ。包含的普通queue的消费，以及Dirct、Topic�
       ```spring.rabbitmq.listener.simple.default-requeue-rejected=false``` 
 
 
-##3
+##3 
 best practice，仅供参考
 https://www.cloudamqp.com/blog/2017-12-29-part1-rabbitmq-best-practice.html
