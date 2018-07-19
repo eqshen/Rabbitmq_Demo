@@ -10,18 +10,21 @@ import javax.annotation.Resource;
 import java.util.UUID;
 
 @Service
-public class TopicProducer {
+public class DeadLetterProducer {
     @Resource(name = "rabbitTemplatenew")
     private RabbitTemplate template;
 
 
-
+    /**
+     * 将消息发送到业务队列
+     * @param msg
+     */
     public void send(String msg){
         System.out.println("send msg:"+msg);
-//        template.convertAndSend(MqConstant.TOPIC_EX,MqConstant.ROUTING_TOPIC_TAG_RQ,msg.getBytes());
         MessageProperties mp = new MessageProperties();
         mp.setMessageId(UUID.randomUUID().toString());
         Message msgObj = new Message(msg.getBytes(),mp);
-        template.send(MqConstant.TOPIC_EX,MqConstant.ROUTING_TOPIC_TAG_RQ,msgObj);
+        template.send(MqConstant.TOPIC_EX,MqConstant.ROUTING_DEAD_TAG_MAINTAIN,msgObj);
     }
+
 }

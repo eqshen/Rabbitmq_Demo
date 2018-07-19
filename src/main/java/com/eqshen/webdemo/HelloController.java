@@ -1,9 +1,6 @@
 package com.eqshen.webdemo;
 
-import com.eqshen.webdemo.producer.CallBackProducer;
-import com.eqshen.webdemo.producer.DirectProducer;
-import com.eqshen.webdemo.producer.MessageProducer;
-import com.eqshen.webdemo.producer.TopicProducer;
+import com.eqshen.webdemo.producer.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -27,6 +24,9 @@ public class HelloController {
 
     @Autowired
     private TopicProducer topicProducer;
+
+    @Autowired
+    private DeadLetterProducer deadLetterProducer;
 
     @RequestMapping("/hello")
     @ResponseBody
@@ -67,9 +67,14 @@ public class HelloController {
     @RequestMapping("/topic")
     @ResponseBody
     public String topic(){
-        for (int i = 0; i <500 ; i++) {
-            topicProducer.send("hello topic "+i);
-        }
+        topicProducer.send("hello topic ");
         return "ok";
+    }
+
+    @RequestMapping("/dead")
+    @ResponseBody
+    public String dead(){
+        deadLetterProducer.send("this is a msg...");
+        return "OK";
     }
 }
